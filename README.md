@@ -21,6 +21,7 @@ This Python project runs as an Azure Function and checks the morning weather for
 
 1. Clone the repo
 2. Create a `.env` file in the root folder with:
+
 ```env
 OPENWEATHER_APP_ID=your_openweather_key
 TWILIO_ACCOUNT_SID=your_twilio_sid
@@ -29,20 +30,27 @@ TWILIO_FROM=+123456789
 TWILIO_TO=+36301234567
 ```
 
+Help for get your APIs:
+- [OpenWeatherMap API](https://openweathermap.org/api)
+- [Twilio SMS API](https://www.twilio.com/docs/sms)
+
+
 3. Edit your location in function_app_git.py (row 48-49):
 ```python
     parameters = {
         "lat": 47.40,             # Latitude (e.g., Budapest)
         "lon": 19.10,             # Longitude
 ```
+-> you can get it from https://www.latlong.net/.
 
 4. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 5. This project is designed to run as an Azure Functions Timer Trigger, not as a standalone script.
-To run locally once to test, you can add main() and Willrain() 
+To run locally once to test, you can call: python test.py
 Hint for deploying to Azure functions:
 https://dev.to/edgaras/deploying-azure-functions-with-python-a-step-by-step-guide-5db6
 
@@ -61,6 +69,7 @@ SMS sent to +3630xxxxxxx
 
 ⚠️ Disclaimer
 Do not commit your .env file or secrets to the repository. Use .gitignore.
+
 
 🤝 Author
 László Gombos
