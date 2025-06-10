@@ -50,10 +50,11 @@ pip install -r requirements.txt
 ```
 
 5. This project is designed to run as an Azure Functions Timer Trigger, not as a standalone script.
-To run locally once to test, you can call: 
+To run locally for testing purpose, you can call: 
 ```bash
 python test.py
 ```
+And then check willrain.log for output
 
 Hint for deploying to Azure functions:
 https://dev.to/edgaras/deploying-azure-functions-with-python-a-step-by-step-guide-5db6
