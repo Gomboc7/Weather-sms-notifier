@@ -2,6 +2,9 @@
 
 This Python project runs as an Azure Function and checks the morning weather forecast using OpenWeatherMap. If rain is predicted, it sends an SMS alert via Twilio.
 
+## ☂️ How it works?
+![Weather Notifier Flowchart](Chart.png)
+
 ## 💡 Features
 
 - Daily weather forecast from OpenWeatherMap
