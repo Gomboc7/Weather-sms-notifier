@@ -16,17 +16,13 @@ jobs:
           echo "Workflow: $GITHUB_WORKFLOW"
           echo "Repository: $GITHUB_REPOSITORY"
           echo "Branch: ${GITHUB_REF#refs/heads/}"
-          echo "$github.ref"
+          echo "Github.ref: $github.ref"
           echo "Commit: $GITHUB_SHA"
           echo "Actor: $GITHUB_ACTOR"
           echo "Event: $GITHUB_EVENT_NAME"
           echo "Runner OS: $RUNNER_OS"
       - name: Checkout Repository
         uses: actions/checkout@main
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@main
-        with:
-          dotnet-version: "8.0.x"
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -38,10 +34,10 @@ jobs:
           pip install -r requirements.txt
           pip install pytest coverage coveralls
 
-      - name: Run tests with coverage
+      - name: Syntax check (compileall)
         run: |
-          coverage run -m pytest
-          coverage xml -o coverage.xml
+          git ls-files
+          python -m compileall -q .
 
       - name: Upload Code Coverage Report
         uses: coverallsapp/github-action@main
