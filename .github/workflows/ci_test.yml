@@ -39,9 +39,5 @@ jobs:
           git ls-files
           python -m compileall -q .
 
-      - name: Upload Code Coverage Report
-        uses: coverallsapp/github-action@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          coverage-file: ./coverage.xml
+
 
