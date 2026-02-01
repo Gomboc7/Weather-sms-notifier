@@ -16,6 +16,7 @@ jobs:
           echo "Workflow: $GITHUB_WORKFLOW"
           echo "Repository: $GITHUB_REPOSITORY"
           echo "Branch: ${GITHUB_REF#refs/heads/}"
+          echo "$github.ref"
           echo "Commit: $GITHUB_SHA"
           echo "Actor: $GITHUB_ACTOR"
           echo "Event: $GITHUB_EVENT_NAME"
@@ -26,18 +27,25 @@ jobs:
         uses: actions/setup-dotnet@main
         with:
           dotnet-version: "8.0.x"
-      - name: make work-directory
-        run: mkdir -p .
-      - name: Restore Dependencies
-        run: dotnet restore
-        working-directory: .
-      - name: Build Solution
-        run: dotnet build --configuration Release
-        working-directory: .
-      - name: Run Tests
-        run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-        working-directory: .
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest coverage coveralls
+
+      - name: Run tests with coverage
+        run: |
+          coverage run -m pytest
+          coverage xml -o coverage.xml
+
       - name: Upload Code Coverage Report
         uses: coverallsapp/github-action@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          coverage-file: ./coverage.xml
+
