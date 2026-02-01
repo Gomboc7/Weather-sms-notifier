@@ -6,16 +6,28 @@ on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Display workflow context
+        run: |
+          echo "Workflow: $GITHUB_WORKFLOW"
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Branch: ${GITHUB_REF#refs/heads/}"
+          echo "Commit: $GITHUB_SHA"
+          echo "Actor: $GITHUB_ACTOR"
+          echo "Event: $GITHUB_EVENT_NAME"
+          echo "Runner OS: $RUNNER_OS"
       - name: Checkout Repository
         uses: actions/checkout@main
       - name: Setup .NET Core
         uses: actions/setup-dotnet@main
         with:
           dotnet-version: "8.0.x"
+      - name: make work-directory
+        run: mkdir -p ./src
       - name: Restore Dependencies
         run: dotnet restore
         working-directory: ./src
